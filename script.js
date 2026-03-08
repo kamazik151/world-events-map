@@ -42,7 +42,7 @@ L.marker([lat,lon])
 
 });
 
-}
+
 };
 
 events.forEach(event=>{
