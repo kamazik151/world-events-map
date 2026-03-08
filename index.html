@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>World Events Map</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🌍 World Events Map</h1>
+
+<input id="countrySearch" placeholder="Search country">
+
+<button onclick="searchCountry()">Search</button>
+
+<select id="filter">
+
+<option value="all">All</option>
+<option value="tech">Tech</option>
+<option value="disaster">Disaster</option>
+<option value="politics">Politics</option>
+
+</select>
+
+<button onclick="toggleTheme()">Theme</button>
+
+</header>
+
+<div id="map"></div>
+
+<div class="chartBox">
+<canvas id="eventsChart"></canvas>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+</html>
