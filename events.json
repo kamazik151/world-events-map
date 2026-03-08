@@ -1,0 +1,25 @@
+[
+{
+"title":"AI Conference",
+"type":"tech",
+"lat":37.77,
+"lon":-122.41,
+"description":"New AI technologies"
+},
+
+{
+"title":"Earthquake",
+"type":"disaster",
+"lat":35.6,
+"lon":140.1,
+"description":"Strong earthquake"
+},
+
+{
+"title":"Political Summit",
+"type":"politics",
+"lat":50.45,
+"lon":30.52,
+"description":"World leaders meeting"
+}
+]
