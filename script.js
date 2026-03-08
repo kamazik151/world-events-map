@@ -18,7 +18,7 @@ date.setDate(date.getDate() - days);
 
 let fromDate = date.toISOString().split("T")[0];
 
-let apiKey = "YOUR_KEY";
+let apiKey = "f70df91ffd7f4d5eb5bcda1462a0aae0";
 
 let url = `https://newsapi.org/v2/everything?q=world&from=${fromDate}&language=${language}&apiKey=${apiKey}`;
 
