@@ -1,6 +1,6 @@
-// script.js — фінальна версія
+// script.js — фінальний робочий для GitHub Pages
 
-document.addEventListener("DOMContentLoaded", async function() {
+document.addEventListener("DOMContentLoaded", function() {
 
     // ---------------------------
     // 1️⃣ Ініціалізація карти
@@ -16,55 +16,35 @@ document.addEventListener("DOMContentLoaded", async function() {
     let counts = { tech:0, disaster:0, politics:0 };
 
     // ---------------------------
-    // 3️⃣ Завантаження новин і подій
+    // 3️⃣ Тестові маркери (замінюють NewsAPI для GitHub Pages)
     // ---------------------------
-    async function loadEvents() {
-        let language = document.getElementById("languageSelect").value;
-        let days = document.getElementById("timeFilter").value;
+    function loadTestEvents() {
+        for(let i=0;i<15;i++){
+            let lat = Math.random()*120-60;
+            let lon = Math.random()*360-180;
+            let types = ["tech","disaster","politics"];
+            let type = types[i%3];
 
-        let date = new Date();
-        date.setDate(date.getDate() - days);
-        let fromDate = date.toISOString().split("T")[0];
+            let marker = L.marker([lat,lon])
+                .addTo(map)
+                .bindPopup(`Event ${i+1} <br> Type: ${type}`);
+            marker.type = type;
+            markers.push(marker);
 
-        let apiKey = "f70df91ffd7f4d5eb5bcda1462a0aae0"; // твій ключ NewsAPI
-        let url = `https://newsapi.org/v2/everything?q=world&from=${fromDate}&language=${language}&apiKey=${apiKey}`;
-
-        try {
-            let response = await fetch(url);
-            let data = await response.json();
-
-            data.articles.forEach((article, i) => {
-                // випадкові координати для демонстрації
-                let lat = Math.random()*120 - 60;
-                let lon = Math.random()*360 - 180;
-
-                let types = ["tech","disaster","politics"];
-                let type = types[i % 3];
-
-                let marker = L.marker([lat, lon])
-                    .addTo(map)
-                    .bindPopup(`<b>${article.title}</b><br><a href="${article.url}" target="_blank">Read more</a>`);
-
-                marker.type = type;
-                markers.push(marker);
-
-                events.push({lat, lon, title: article.title, type});
-                counts[type]++;
-            });
-
-            // Створюємо графік і heatmap після додавання всіх маркерів
-            createChart(counts);
-            createHeatmap(events);
-
-        } catch (err) {
-            console.error("Помилка при завантаженні новин:", err);
+            events.push({lat, lon, title:`Event ${i+1}`, type});
+            counts[type]++;
         }
+
+        createChart(counts);
+        createHeatmap(events);
     }
+
+    loadTestEvents(); // додаємо маркери та графік/heatmap
 
     // ---------------------------
     // 4️⃣ Фільтр за типом події
     // ---------------------------
-    document.getElementById("filter").addEventListener("change", function() {
+    document.getElementById("filter").addEventListener("change", function(){
         let value = this.value;
         markers.forEach(marker => {
             if(value==="all" || marker.type===value) map.addLayer(marker);
@@ -92,14 +72,13 @@ document.addEventListener("DOMContentLoaded", async function() {
 
             if(data.length>0) map.setView([data[0].lat, data[0].lon],5);
             else alert("Країну не знайдено");
-
         } catch(err){
             console.error("Помилка пошуку країни:", err);
         }
     }
 
     // ---------------------------
-    // 7️⃣ Графік Chart.js
+    // 7️⃣ Chart.js графік
     // ---------------------------
     function createChart(counts){
         const ctx = document.getElementById('eventsChart');
@@ -113,7 +92,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     backgroundColor:['#34d399','#f87171','#60a5fa']
                 }]
             },
-            options: { responsive:true, plugins:{legend:{display:false}} }
+            options:{ responsive:true, plugins:{legend:{display:false}} }
         });
     }
 
@@ -121,13 +100,8 @@ document.addEventListener("DOMContentLoaded", async function() {
     // 8️⃣ Heatmap
     // ---------------------------
     function createHeatmap(events){
-        let heatPoints = events.map(e=>[e.lat, e.lon,0.8]);
+        let heatPoints = events.map(e => [e.lat, e.lon, 0.8]);
         L.heatLayer(heatPoints,{radius:25}).addTo(map);
     }
-
-    // ---------------------------
-    // 9️⃣ Виклик завантаження подій після створення карти
-    // ---------------------------
-    await loadEvents();
 
 });
