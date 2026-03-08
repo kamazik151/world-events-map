@@ -3,11 +3,17 @@ document.addEventListener("DOMContentLoaded", function() {
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(map);
 
+    let markers = [];
+    let events = [];
+    let counts = { tech:0, disaster:0, politics:0 };
+
+    await loadEvents();
+
 });
 
 let markers = [];
 
-async function loadEvents(){
+{
 
 let language = document.getElementById("languageSelect").value;
 
@@ -150,10 +156,7 @@ heatPoints.push([e.lat,e.lon,0.8]);
 
 L.heatLayer(heatPoints,{radius:25}).addTo(map);
 
-}
 
-
-async function loadNews(){
 
 let response = await fetch(
 "https://newsapi.org/v2/top-headlines?language=en&apiKey=f70df91ffd7f4d5eb5bcda1462a0aae0"
