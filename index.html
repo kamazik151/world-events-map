@@ -36,6 +36,23 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
 <button onclick="toggleTheme()">Theme</button>
 
+<select id="languageSelect">
+
+<option value="en">English</option>
+<option value="uk">Українська</option>
+
+</select>
+
+<select id="timeFilter">
+
+<option value="1">1 day</option>
+<option value="7">1 week</option>
+<option value="30">1 month</option>
+
+</select>
+
+<button onclick="loadNews()">Load news</button>
+
 </header>
 
 <div id="map"></div>
