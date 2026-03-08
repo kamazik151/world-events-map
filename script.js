@@ -8,14 +8,41 @@ let markers = [];
 
 async function loadEvents(){
 
-let response = await fetch('events.json');
+let language = document.getElementById("languageSelect").value;
 
-let events = await response.json();
+let days = document.getElementById("timeFilter").value;
 
-let counts = {
-tech:0,
-disaster:0,
-politics:0
+let date = new Date();
+
+date.setDate(date.getDate() - days);
+
+let fromDate = date.toISOString().split("T")[0];
+
+let apiKey = "YOUR_KEY";
+
+let url = `https://newsapi.org/v2/everything?q=world&from=${fromDate}&language=${language}&apiKey=${apiKey}`;
+
+let response = await fetch(url);
+
+let data = await response.json();
+
+data.articles.forEach(article=>{
+
+let lat = Math.random()*120-60;
+
+let lon = Math.random()*360-180;
+
+L.marker([lat,lon])
+.addTo(map)
+.bindPopup(
+
+"<b>"+article.title+"</b><br><a href='"+article.url+"' target='_blank'>Read more</a>"
+
+);
+
+});
+
+}
 };
 
 events.forEach(event=>{
