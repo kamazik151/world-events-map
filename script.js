@@ -128,7 +128,7 @@ L.heatLayer(heatPoints,{radius:25}).addTo(map);
 async function loadNews(){
 
 let response = await fetch(
-"https://newsapi.org/v2/top-headlines?language=en&apiKey=YOUR_KEY"
+"https://newsapi.org/v2/top-headlines?language=en&apiKey=f70df91ffd7f4d5eb5bcda1462a0aae0"
 );
 
 let data = await response.json();
